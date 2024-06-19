@@ -1,11 +1,13 @@
 package com.springbootproject.banking_application.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Table(name="accounts")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Account {
 
     @Id
@@ -18,5 +20,8 @@ public class Account {
     private double balance;
 
     public Account(long id, String accountHolderName, double balance) {
+        this.id = id;
+        this.accountHolderName = accountHolderName;
+        this.balance = balance;
     }
 }
