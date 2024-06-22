@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+
 @RestController
 @RequestMapping("/api/accounts")
 public class AccountController {
@@ -26,6 +28,12 @@ public class AccountController {
     @GetMapping("/{id}")
     public ResponseEntity<AccountDto> getAccountById(@PathVariable Long id){
         AccountDto accountDto = accountService.getAccountById(id);
+        return ResponseEntity.ok(accountDto);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<AccountDto> deposit(@PathVariable Long id, @RequestBody HashMap<String, Double> request){
+        AccountDto accountDto = accountService.deposit(id, request.get("amount"));
         return ResponseEntity.ok(accountDto);
     }
 }

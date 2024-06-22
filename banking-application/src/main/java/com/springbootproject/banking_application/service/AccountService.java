@@ -7,6 +7,6 @@ import com.springbootproject.banking_application.entity.Account;
 public interface AccountService {
 
     AccountDto createAccount(AccountDto accountDto);
-
     AccountDto getAccountById(Long id);
+    AccountDto deposit(Long id, double amount);
 }
