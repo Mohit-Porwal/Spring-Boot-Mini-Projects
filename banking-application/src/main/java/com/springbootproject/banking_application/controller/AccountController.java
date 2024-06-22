@@ -31,9 +31,15 @@ public class AccountController {
         return ResponseEntity.ok(accountDto);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/deposit")
     public ResponseEntity<AccountDto> deposit(@PathVariable Long id, @RequestBody HashMap<String, Double> request){
         AccountDto accountDto = accountService.deposit(id, request.get("amount"));
+        return ResponseEntity.ok(accountDto);
+    }
+
+    @PutMapping("/{id}/withdraw")
+    public ResponseEntity<AccountDto> withdraw(@PathVariable Long id, @RequestBody HashMap<String, Double> request){
+        AccountDto accountDto = accountService.withdraw(id,request.get("amount"));
         return ResponseEntity.ok(accountDto);
     }
 }
