@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/accounts")
@@ -41,5 +42,10 @@ public class AccountController {
     public ResponseEntity<AccountDto> withdraw(@PathVariable Long id, @RequestBody HashMap<String, Double> request){
         AccountDto accountDto = accountService.withdraw(id,request.get("amount"));
         return ResponseEntity.ok(accountDto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<AccountDto>> getAllAccounts(){
+        return ResponseEntity.ok(accountService.getAllAccounts());
     }
 }
