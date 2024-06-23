@@ -1,6 +1,7 @@
 package com.springbootproject.banking_application.service.impl;
 
 import com.springbootproject.banking_application.dto.AccountDto;
+import com.springbootproject.banking_application.dto.TransferFundsDto;
 import com.springbootproject.banking_application.entity.Account;
 import com.springbootproject.banking_application.exception.AccountException;
 import com.springbootproject.banking_application.mapper.AccountMapper;
@@ -65,5 +66,22 @@ public class AccountServiceImpl implements AccountService {
     public void deleteAccount(Long id) {
         Account account = accountRepository.findById(id).orElseThrow(()-> new AccountException("Account does not exist") );
         accountRepository.deleteById(id);
+    }
+
+    @Override
+    public void transferFunds(TransferFundsDto transferFundsDto) {
+        Account senderAccount = accountRepository.findById(transferFundsDto.senderAccountId()).orElseThrow(()-> new AccountException("Account does not exist") );
+        Account receiverAccount = accountRepository.findById(transferFundsDto.receiverAccountId()).orElseThrow(()-> new AccountException("Account does not exist") );
+
+        double senderAmount = transferFundsDto.amount();
+
+        if(senderAmount > senderAccount.getBalance()){
+            throw new RuntimeException("Insufficient Balance");
+        }
+        senderAccount.setBalance(senderAccount.getBalance() - senderAmount);
+        receiverAccount.setBalance(receiverAccount.getBalance() + senderAmount);
+
+        accountRepository.save(senderAccount);
+        accountRepository.save(receiverAccount);
     }
 }
