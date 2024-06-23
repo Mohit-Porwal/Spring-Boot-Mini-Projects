@@ -1,6 +1,6 @@
 package com.springbootproject.banking_application.dto;
 
-public record AccountDto(long id, String accountHolderName, double balance ) {
+public record AccountDto(Long id, String accountHolderName,double balance ) {
 }
 
 
